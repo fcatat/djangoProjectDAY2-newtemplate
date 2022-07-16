@@ -1,0 +1,181 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Bootstrap Basic Tables</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="#!">Tables</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Basic Tables</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+
+                        <!-- [ stiped-table ] start -->
+
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>total {{ total }} records</h5>
+                                </div>
+                                {% if messages %}
+                                    <ul class="alert alert-success">
+                                        {% for message in messages %}
+                                            <li{% if message.tags %}
+                                                class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                <div class="card-block table-border-style">
+                                    <div class="col-6" style="float: left">
+                                        <b>Sort By : - </b>
+                                        {#                                        <a href="/admin/list/?q={{ value }}&orderby=id">Id</a> |#}
+                                        <a href="/low_value_consumable_list/?q={{ value }}&orderby=name">物品名称</a> |
+                                        <a href="/low_value_consumable_list/?q={{ value }}&orderby=brand">品牌</a> |
+                                        <a href="/low_value_consumable_list/?q={{ value }}&orderby=inventory_quantity">库存数量</a>
+                                        |
+
+                                    </div>
+                                    <div class="col-6" style="float: right">
+                                        <form class="form-inline">
+                                            <div class="form-group mx-sm-3 mb-0">
+                                                <input type="text" class="form-control" name="q"
+                                                       placeholder="Search for..." value="{{ value }}">
+                                                <button type="submit" class="btn btn-secondary mb-0">Search</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="table-responsive">
+
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>物品名称</th>
+                                                <th>品牌</th>
+                                                <th>型号</th>
+                                                <th>库存量</th>
+                                                <th>单价</th>
+                                                <th>所在库房</th>
+                                                <th>商品条码</th>
+                                                <th>更新时间</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for obj in page_obj %}
+                                                <tr>
+                                                    <th scope="row">{{ obj.id }}</th>
+                                                    <td>{{ obj.name }}</td>
+                                                    <td>{{ obj.brand }}</td>
+                                                    <td>{{ obj.model }}</td>
+                                                    <td>{{ obj.inventory_quantity }}</td>
+                                                    <td>{{ obj.price }}</td>
+                                                    <td>{{ obj.get_warehouse_display }}</td>
+                                                    <td>{{ obj.barcode }}</td>
+                                                    <td>{{ obj.update_time|date:"Y-m-d H:i" }}</td>
+
+                                                    <td>
+                                                        {% if obj.inventory_quantity == 0 %}
+                                                            <a href="/get_low_value_consumable/{{ obj.id }}"
+                                                               class="badge badge-danger badge-bg"
+                                                               style="pointer-events: none;"><i
+                                                                    class="feather icon-eye"></i>&nbsp;无库存</a>
+                                                        {% elif obj.inventory_quantity > 0 and obj.inventory_quantity < 10 %}
+                                                            <a href="/get_low_value_consumable/{{ obj.id }}"
+                                                               class="badge badge-warning badge-bg"><i
+                                                                    class="feather icon-eye"></i>&nbsp;库存紧张</a>
+                                                        {% else %}
+                                                            <a href="/get_low_value_consumable/{{ obj.id }}"
+                                                               class="badge badge-info badge-bg"><i
+                                                                    class="feather icon-eye"></i>&nbsp;领用</a>
+                                                        {% endif %}
+
+                                                    </td>
+                                                    <td>
+                                                        {% if current_dingtalk_user == '季兴' %}
+                                                            <a href="/edit_low_value_consumable/{{ obj.id }}"
+                                                               class="badge badge-primary badge-bg"><i
+                                                                    class="feather icon-eye"></i>&nbsp;编辑</a>
+                                                            <a href="/delete_low_value_consumable/{{ obj.id }}"
+                                                               class="badge badge-primary badge-bg"><i
+                                                                    class="feather icon-eye"></i>&nbsp;删除</a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        {% if current_dingtalk_user == '季兴' %}
+                                            <a class="btn btn-primary btn-sm" href="/add_low_value_consumable/">Add New Assets</a>
+                                        {% endif %}
+
+
+                                    </div>
+                                    <div class="pagination" style="float: right">
+                                                <span class="step-links">
+                                                    {% if page_obj.has_previous %}
+                                                        <a href="?page=1">&laquo; first</a>
+                                                        <a href="?page={{ page_obj.previous_page_number }}">pre</a>
+                                                    {% endif %}
+
+                                                    <span class="current">
+                                                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                                    </span>
+
+                                                    {% if page_obj.has_next %}
+                                                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                                                    {% endif %}
+                                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ stiped-table ] end -->
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script type="text/javascript" language="JavaScript">
+        function deleteJob() {
+            if (confirm("确定要删除吗?")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    </script>
+{% endblock javascripts %}

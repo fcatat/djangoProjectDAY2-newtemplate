@@ -1,0 +1,87 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Page Blank {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Sample Page</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Sample Page</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>未读消息</h5>
+                                </div>
+                                <div class="card-block">
+                                    <button type="button" class="btn btn-tool">
+                                        <a href="/update_notifications/"
+                                           class="text-success font-weight-bold">
+                                            <i class="fa fa-check"></i>全部已读
+                                        </a>
+                                    </button>
+                                    <br>
+
+{#                                    {% for notice in unread_list %}#}
+                                    {% for key,value in task_dict.items %}
+
+                                        <tr>
+                                        <td class="mailbox-name">
+                                        {% if value.1 == 'SUCCESS' %}
+                                            <i class="fas fa-circle text-c-green f-10 m-r-15">{{ key }} 执行成功</i>
+                                        {% elif value.1 == 'PENDING' %}
+                                            <i class="fas fa-circle text-c-yellow f-10 m-r-15">{{ key }} 正在执行</i>
+                                        {% else %}
+                                            <i class="fas fa-circle text-c-red f-10 m-r-15">{{ key }} 执行失败</i>
+                                        {% endif %}
+                                        </td>
+
+{#                                        <td class="mailbox-date">#}
+{#                                            <b>{{ notice.timestamp }}</b>#}
+{#                                        </td>#}
+
+
+                                        <td class="mailbox-attachment">
+                                            <a href="/update_notifications/?notice_id={{ value.0 }}"
+                                               title="已读"><span class="text-success"><i class="fa fa-check"></i>
+                                                            </span></a>
+                                        </td>
+                                        <br/>
+
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

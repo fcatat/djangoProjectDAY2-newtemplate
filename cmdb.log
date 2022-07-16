@@ -1,0 +1,98 @@
+2022-05-03 13:33:36,086 - CMDB - ERROR -tasks: Traceback (most recent call last):
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2-newtemplate\app01\utils\collection_assets\tasks.py", line 65, in process
+    res = execute(ANSIBLE_HOST, 'ansible all -m setup')
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2-newtemplate\app01\utils\collection_assets\tasks.py", line 47, in execute
+    ssh.connect(
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2\venv\lib\site-packages\paramiko\client.py", line 349, in connect
+    retry_on_signal(lambda: sock.connect(addr))
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2\venv\lib\site-packages\paramiko\util.py", line 279, in retry_on_signal
+    return function()
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2\venv\lib\site-packages\paramiko\client.py", line 349, in <lambda>
+    retry_on_signal(lambda: sock.connect(addr))
+TimeoutError: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+2022-05-03 13:34:25,816 - CMDB - ERROR -tasks: Traceback (most recent call last):
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2-newtemplate\app01\utils\collection_assets\tasks.py", line 65, in process
+    res = execute(ANSIBLE_HOST, 'ansible all -m setup')
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2-newtemplate\app01\utils\collection_assets\tasks.py", line 47, in execute
+    ssh.connect(
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\client.py", line 349, in connect
+    retry_on_signal(lambda: sock.connect(addr))
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\util.py", line 279, in retry_on_signal
+    return function()
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\client.py", line 349, in <lambda>
+    retry_on_signal(lambda: sock.connect(addr))
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\eventlet\greenio\base.py", line 256, in connect
+    socket_checkerr(fd)
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\eventlet\greenio\base.py", line 54, in socket_checkerr
+    raise socket.error(err, errno.errorcode[err])
+TimeoutError: [Errno 10060] WSAETIMEDOUT
+
+2022-05-03 13:36:12,750 - CMDB - ERROR -tasks: Traceback (most recent call last):
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2-newtemplate\app01\utils\collection_assets\tasks.py", line 65, in process
+    res = execute(ANSIBLE_HOST, 'ansible all -m setup')
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2-newtemplate\app01\utils\collection_assets\tasks.py", line 47, in execute
+    ssh.connect(
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\client.py", line 349, in connect
+    retry_on_signal(lambda: sock.connect(addr))
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\util.py", line 279, in retry_on_signal
+    return function()
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\client.py", line 349, in <lambda>
+    retry_on_signal(lambda: sock.connect(addr))
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\eventlet\greenio\base.py", line 256, in connect
+    socket_checkerr(fd)
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\eventlet\greenio\base.py", line 54, in socket_checkerr
+    raise socket.error(err, errno.errorcode[err])
+TimeoutError: [Errno 10060] WSAETIMEDOUT
+
+2022-05-03 13:38:34,886 - CMDB - ERROR -tasks: Traceback (most recent call last):
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2-newtemplate\app01\utils\collection_assets\tasks.py", line 65, in process
+    res = execute(ANSIBLE_HOST, 'ansible all -m setup')
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2-newtemplate\app01\utils\collection_assets\tasks.py", line 47, in execute
+    ssh.connect(
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\client.py", line 349, in connect
+    retry_on_signal(lambda: sock.connect(addr))
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\util.py", line 279, in retry_on_signal
+    return function()
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\client.py", line 349, in <lambda>
+    retry_on_signal(lambda: sock.connect(addr))
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\eventlet\greenio\base.py", line 256, in connect
+    socket_checkerr(fd)
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\eventlet\greenio\base.py", line 54, in socket_checkerr
+    raise socket.error(err, errno.errorcode[err])
+TimeoutError: [Errno 10060] WSAETIMEDOUT
+
+2022-05-03 13:39:56,668 - CMDB - ERROR -tasks: Traceback (most recent call last):
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2-newtemplate\app01\utils\collection_assets\tasks.py", line 65, in process
+    res = execute(ANSIBLE_HOST, 'ansible all -m setup')
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2-newtemplate\app01\utils\collection_assets\tasks.py", line 47, in execute
+    ssh.connect(
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\client.py", line 349, in connect
+    retry_on_signal(lambda: sock.connect(addr))
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\util.py", line 279, in retry_on_signal
+    return function()
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\client.py", line 349, in <lambda>
+    retry_on_signal(lambda: sock.connect(addr))
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\eventlet\greenio\base.py", line 256, in connect
+    socket_checkerr(fd)
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\eventlet\greenio\base.py", line 54, in socket_checkerr
+    raise socket.error(err, errno.errorcode[err])
+TimeoutError: [Errno 10060] WSAETIMEDOUT
+
+2022-05-03 13:42:51,912 - CMDB - ERROR -tasks: Traceback (most recent call last):
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2-newtemplate\app01\utils\collection_assets\tasks.py", line 65, in process
+    res = execute(ANSIBLE_HOST, 'ansible all -m setup')
+  File "C:\Users\lool\PycharmProjects\djangoProjectDAY2-newtemplate\app01\utils\collection_assets\tasks.py", line 47, in execute
+    ssh.connect(
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\client.py", line 349, in connect
+    retry_on_signal(lambda: sock.connect(addr))
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\util.py", line 279, in retry_on_signal
+    return function()
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\paramiko\client.py", line 349, in <lambda>
+    retry_on_signal(lambda: sock.connect(addr))
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\eventlet\greenio\base.py", line 256, in connect
+    socket_checkerr(fd)
+  File "c:\users\lool\pycharmprojects\djangoprojectday2\venv\lib\site-packages\eventlet\greenio\base.py", line 54, in socket_checkerr
+    raise socket.error(err, errno.errorcode[err])
+TimeoutError: [Errno 10060] WSAETIMEDOUT
+

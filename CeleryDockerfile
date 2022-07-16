@@ -1,0 +1,9 @@
+FROM python:3.8.10
+
+WORKDIR .
+
+ADD . .
+
+RUN pip install -r requirements.txt -i https://pypi.doubanio.com/simple
+
+CMD ["celery", "-A", "djangoProjectDAY2", "worker", "-l", "info", "-P", "eventlet"]

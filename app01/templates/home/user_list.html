@@ -1,0 +1,139 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Bootstrap Basic Tables</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="#!">Tables</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Basic Tables</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+
+                        <!-- [ stiped-table ] start -->
+
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>total {{ total }} records</h5>
+                                    {#                                    <span class="d-block m-t-5">use class <code>table-striped</code> inside table element</span>#}
+                                </div>
+                                <div class="card-block table-border-style">
+                                    <div class="col-6" style="float: left">
+                                        <b>Sort By : - </b>
+                                        {#                                        <a href="/admin/list/?q={{ value }}&orderby=id">Id</a> |#}
+                                        <a href="/user/list/?q={{ value }}&orderby=name">Name</a> |
+                                        <a href="/user/list/?q={{ value }}&orderby=age">Age</a> |
+                                        <a href="/user/list/?q={{ value }}&orderby=account">Account</a> |
+                                        <a href="/user/list/?q={{ value }}&orderby=create_time">Create_time</a> |
+                                        <a href="/user/list/?q={{ value }}&orderby=depart">Depart</a> |
+                                        <a href="/user/list/?q={{ value }}&orderby=gender">Gender</a> |
+
+                                    </div>
+                                    <div class="col-6" style="float: right">
+                                        <form class="form-inline">
+                                            <div class="form-group mx-sm-3 mb-0">
+                                                <input type="text" class="form-control" name="q"
+                                                       placeholder="Search for..." value="{{ value }}">
+                                                <button type="submit" class="btn btn-secondary mb-0">Search</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="table-responsive">
+
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>姓名</th>
+                                                <th>密码</th>
+                                                <th>年龄</th>
+                                                <th>余额</th>
+                                                <th>入职时间</th>
+                                                <th>部门</th>
+                                                <th>性别</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for obj in page_obj %}
+                                                <tr>
+                                                    <th scope="row">{{ obj.id }}</th>
+                                                    <td>{{ obj.name }}</td>
+                                                    <td>********</td>
+                                                    <td>{{ obj.age }}</td>
+                                                    <td>{{ obj.account }}</td>
+                                                    <td>{{ obj.create_time|date:"Y-m-d" }}</td>
+                                                    <td>{{ obj.depart }}</td>
+                                                    <td>{{ obj.get_gender_display }}</td>
+                                                    <td>
+                                                        <a href="/user/edit/{{ obj.id }}"
+                                                           class="badge badge-warning badge-bg"><i
+                                                                class="feather icon-eye"></i>&nbsp;Edit</a>
+                                                        <a href="/user/delete/{{ obj.id }}"
+                                                           class="badge badge-danger"><i
+                                                                class="feather icon-trash-2"></i>&nbsp;Delete</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        <a class="btn btn-primary btn-sm" href="/user/add/">Add New User</a>
+                                    </div>
+                                    <div class="pagination" style="float: right">
+                                                <span class="step-links">
+                                                    {% if page_obj.has_previous %}
+                                                        <a href="?page=1">&laquo; first</a>
+                                                        <a href="?page={{ page_obj.previous_page_number }}">pre</a>
+                                                    {% endif %}
+
+                                                    <span class="current">
+                                                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                                    </span>
+
+                                                    {% if page_obj.has_next %}
+                                                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                                                    {% endif %}
+                                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ stiped-table ] end -->
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

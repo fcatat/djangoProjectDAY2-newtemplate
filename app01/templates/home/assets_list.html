@@ -1,0 +1,181 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Bootstrap Basic Tables</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="#!">Tables</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Basic Tables</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+
+                        <!-- [ stiped-table ] start -->
+
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>total {{ total }} records</h5>
+                                </div>
+                                {% if messages %}
+                                    <ul class="alert alert-success">
+                                        {% for message in messages %}
+                                            <li{% if message.tags %}
+                                                class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                <div class="card-block table-border-style">
+                                    <div class="col-6" style="float: left">
+                                        <b>Sort By : - </b>
+                                        {#                                        <a href="/admin/list/?q={{ value }}&orderby=id">Id</a> |#}
+                                        <a href="/assets/list/?q={{ value }}&orderby=sn">SN</a> |
+                                        <a href="/assets/list/?q={{ value }}&orderby=ipv4">IP</a> |
+                                        <a href="/assets/list/?q={{ value }}&orderby=status">Status</a> |
+                                        <a href="/assets/list/?q={{ value }}&orderby=owner">Owner</a> |
+                                        <a href="/assets/list/?q={{ value }}&orderby=create_time">Create_time</a> |
+                                        <a href="/assets/list/?q={{ value }}&orderby=update_time">Update_time</a> |
+
+                                    </div>
+                                    <div class="col-6" style="float: right">
+                                        <form class="form-inline">
+                                            <div class="form-group mx-sm-3 mb-0">
+                                                <input type="text" class="form-control" name="q"
+                                                       placeholder="Search for..." value="{{ value }}">
+                                                <button type="submit" class="btn btn-secondary mb-0">Search</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="table-responsive">
+
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>序列号</th>
+                                                <th>IPv4地址</th>
+                                                <th>CPU核心数</th>
+                                                <th>内存</th>
+                                                {#                                                <th>硬盘</th>#}
+                                                <th>状态</th>
+                                                <th>负责人</th>
+                                                <th>业务组</th>
+                                                {#                                                <th>创建时间</th>#}
+                                                <th>更新时间</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for obj in page_obj %}
+                                                <tr>
+                                                    <th scope="row">{{ obj.id }}</th>
+                                                    <td>{{ obj.sn }}</td>
+                                                    <td>{{ obj.ipv4 }}</td>
+                                                    <td>{{ obj.core_num }}</td>
+                                                    <td>{{ obj.mem }}</td>
+                                                    {#                                                    <td>{{ obj.disk }}</td>#}
+                                                    <td>{% if obj.get_status_display == 'offline' %}
+                                                        <i class="fas fa-circle text-c-red f-10 m-r-15">offline</i>
+                                                    {% else %}
+                                                        <i class="fas fa-circle text-c-green f-10 m-r-15">online</i>
+                                                    {% endif %}
+                                                    </td>
+                                                    <td>{{ obj.owner }}</td>
+
+                                                    <td>
+                                                        {% for i in obj.app.all %}{{ i }}&nbsp;&nbsp;{% endfor %}
+                                                    </td>
+                                                    {#                                                    <td>{{ obj.create_time }}</td>#}
+                                                    <td>{{ obj.update_time|date:"Y-m-d H:i" }}</td>
+                                                    <td>
+                                                        <a href="/assets/edit/{{ obj.id }}"
+                                                           class="badge badge-warning badge-bg"><i
+                                                                class="feather icon-eye"></i>&nbsp;Edit</a>
+                                                        <a href="/assets/delete/{{ obj.id }}"
+                                                           class="badge badge-danger" onclick="return deleteJob()"><i
+                                                                class="feather icon-trash-2"></i>&nbsp;Delete</a>
+                                                        <a href="http://192.168.31.141:8888/?hostname={{ obj.ipv4 }}&username=root&password=V2VsY29tZTEyMzQ="
+                                                           class="badge badge-info badge-bg" target="_blank"><i
+                                                                class="feather icon-eye"></i>&nbsp;ssh</a>
+
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                        <a class="btn btn-primary btn-sm" href="/assets/add/">Add New Assets</a>
+                                        <a class="btn btn-primary btn-sm" href="/assets/manual_update/">Refresh
+                                            Assets</a>
+
+
+
+                                    </div>
+                                    <div class="pagination" style="float: right">
+                                                <span class="step-links">
+                                                    {% if page_obj.has_previous %}
+                                                        <a href="?page=1">&laquo; first</a>
+                                                        <a href="?page={{ page_obj.previous_page_number }}">pre</a>
+                                                    {% endif %}
+
+                                                    <span class="current">
+                                                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                                    </span>
+
+                                                    {% if page_obj.has_next %}
+                                                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                                                    {% endif %}
+                                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ stiped-table ] end -->
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script type="text/javascript" language="JavaScript">
+        function deleteJob() {
+            if (confirm("确定要删除吗?")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    </script>
+{% endblock javascripts %}

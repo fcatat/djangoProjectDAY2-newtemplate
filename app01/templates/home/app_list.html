@@ -1,0 +1,227 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Bootstrap Basic Tables</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="#!">Tables</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Basic Tables</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+
+                        <!-- [ stiped-table ] start -->
+
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>total {{ total }} records</h5>
+                                </div>
+                                {% if messages %}
+                                    <ul class="alert alert-success">
+                                        {% for message in messages %}
+                                            <li{% if message.tags %}
+                                                class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                <div class="card-block table-border-style">
+                                    <div class="col-6" style="float: left">
+                                        <b>Sort By : - </b>
+                                        {#                                        <a href="/admin/list/?q={{ value }}&orderby=id">Id</a> |#}
+                                        <a href="/app/list/?q={{ value }}&orderby=app_type">app_type</a>
+                                        <a href="/app/list/?q={{ value }}&orderby=app_name">app_name</a>
+
+                                    </div>
+                                    <div class="col-6" style="float: right">
+                                        <form class="form-inline">
+                                            <div class="form-group mx-sm-3 mb-0">
+                                                <input type="text" class="form-control" name="q"
+                                                       placeholder="Search for..." value="{{ value }}">
+                                                <button type="submit" class="btn btn-secondary mb-0">Search</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="table-responsive">
+
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>应用类型</th>
+                                                <th>应用名称</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for obj in page_obj %}
+                                                <tr>
+                                                    <th scope="row">{{ obj.id }}</th>
+                                                    <td>{{ obj.get_app_type_display }}</td>
+                                                    <td>{{ obj.app_name }}</td>
+
+                                                    <td>
+                                                        <a href="/app/edit/{{ obj.id }}"
+                                                           class="badge badge-warning badge-bg"><i
+                                                                class="feather icon-eye"></i>&nbsp;Edit</a>
+                                                        <a href="/app/delete/{{ obj.id }}" class="badge badge-danger"><i
+                                                                class="feather icon-trash-2"></i>&nbsp;Delete</a>
+{#                                                        <input class="badge badge-danger" type="button" value="delete">#}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                        <!-- Button 添加 modal -->
+                                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                                                data-target="#myModal">
+                                            新建应用
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                             aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close"><span
+                                                                aria-hidden="true">&times;</span></button>
+                                                        {#                                                        <h4 class="modal-title" id="myModalLabel">新建订单</h4>#}
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form id="formAdd" class="form" method="post" novalidate>
+                                                            {% for field in form %}
+                                                                <div class="form-group">
+                                                                    <label>{{ field.label }}</label>
+                                                                    {{ field }}
+                                                                    <span class="error-msg">{{ field.errors }}</span>
+                                                                </div>
+                                                            {% endfor %}
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button id="btnSave" type="button" class="btn btn-primary">Save
+                                                            changes
+                                                        </button>
+                                                        <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Button 删除 modal -->
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+                                             aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close"><span
+                                                                aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ...
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                        <button type="button" class="btn btn-primary">Save changes
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="pagination" style="float: right">
+                                                <span class="step-links">
+                                                    {% if page_obj.has_previous %}
+                                                        <a href="?page=1">&laquo; first</a>
+                                                        <a href="?page={{ page_obj.previous_page_number }}">pre</a>
+                                                    {% endif %}
+
+                                                    <span class="current">
+                                                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                                    </span>
+
+                                                    {% if page_obj.has_next %}
+                                                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                                                    {% endif %}
+                                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ stiped-table ] end -->
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script type="text/javascript">
+        $(function () {
+            bindBtnSaveEvent();
+        })
+
+        function bindBtnSaveEvent() {
+            $("#btnSave").click(function () {
+                $(".error-msg").empty();
+                $.ajax({
+                    url: "/app/add/",
+                    type: "post",
+                    data: $("#formAdd").serialize(),
+                    dataType: "JSON",
+                    success: function (res) {
+                        if (res.status) {
+                            $("#myModal").modal("hide");
+                            location.reload();
+                        } else {
+                            $.each(res.error, function (name, errorList) {
+                                $("#id_" + name).next().text(errorList[0]);
+                            })
+                        }
+                    }
+                })
+            });
+        }
+    </script>
+{% endblock javascripts %}
